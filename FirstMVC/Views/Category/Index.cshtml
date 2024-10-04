@@ -1,0 +1,15 @@
+﻿
+
+@section Categories
+{
+    @foreach (Category item in Model)
+    {
+        <div class="col-3">
+            <a asp-controller="Product" asp-action="GetProductsByCategory">
+
+                <img src="/Images/@item.Icon" style="width: 50px; height: 50px" />
+            </a>
+        </div>
+    }
+}
+
