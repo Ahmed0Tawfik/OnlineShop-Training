@@ -1,14 +1,5 @@
-﻿@model IEnumerable<FirstMVC.Models.Product>
-
-@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_ProductsLayout.cshtml";
-}
-
-
-
-
-
+﻿@section Products
+{
     @foreach (Product item in Model)
     {
 
@@ -19,11 +10,15 @@
                 <img src="/Images/@item.Image" />
             </a>
 
-            <h3>@item.Name</h3>
-            <p>@item.Price $</p>
+            <h4>@item.Name</h4>
+            <p>@item.Price</p>
             <p>
                 In Stock : @item.Quantity
             </p>
 
         </div>
     }
+}
+
+    
+

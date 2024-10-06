@@ -7,7 +7,7 @@ namespace FirstMVC.Repository
     {
        List<Product> GetAll();
 
-        public List<Product> GetByCategory(Category category);
+       public List<Product> GetByCategory(Category category);
        
     }
 }

@@ -20,5 +20,10 @@ namespace FirstMVC.Service
         {
             return _ProductRepository.GetByCategory(category);
         }
+
+        public List<Product> GetFeaturedProducts()
+        {
+            return _ProductRepository.GetAll().OrderBy(p => Guid.NewGuid()).Take(3).ToList();
+        }
     }
 }

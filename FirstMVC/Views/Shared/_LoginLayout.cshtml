@@ -1,23 +1,132 @@
 ﻿<!DOCTYPE html>
 <html>
+
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="/css/Login.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width-device-width, initial-scale=1.0">
+    <title>Online Shop</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-    <style media="screen">
-    </style>
-    <title>@ViewBag.Title</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <!--added a cdn link by searching font awesome4 cdn and getting this link from https://www.bootstrapcdn.com/fontawesome/ this url*/-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/LoginStyles.css">
+
 </head>
 <body>
-    <header>
-       
-    </header>
+    <div class="header">
+        <div class="container">
+            <div class="navbar">
 
-    @RenderBody()
+                <div class="logo">
+                    <a asp-controller="Home" asp-action="Index">
+                        OnlineShop
+                    </a>
+                </div>
+
+                <nav>
+                    <ul id="MenuItems" class="navelem">
+
+                        <li><a asp-controller="Product" asp-action="Index">Products</a></li>
+
+                        <li class="dropdown">
+                            <a asp-controller="Category" asp-action="Index" class="dropbtn">Categories</a>
+                            <div class="dropdown-content">
+                                <a asp-controller="Product" asp-action="ByCategoryBags" class="dropbtn">Bags</a>
+                                <a asp-controller="Product" asp-action="ByCategoryShoes" class="dropbtn">Shoes</a>
+                            </div>
+                        </li>
+
+                        <li><a asp-controller="Services" asp-action="About">About</a></li>
+
+                        <li><a asp-controller="Services" asp-action="Contact">Contact Us</a></li>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="dropdown">
+                                <a asp-controller="Account" asp-action="Profile" class="dropbtn">@User.Identity.Name</a>
+                                <div class="dropdown-content">
+                                    <a asp-controller="Account" asp-action="Profile" class="dropbtn">Profile</a>
+                                    <a asp-controller="Account" asp-action="SignOut" class="dropbtn">Logout</a>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+                        }
 
 
+
+                    </ul>
+                </nav>
+
+
+                <a asp-controller="Cart" asp-action="GetCart">
+
+                    <img src="images/cart.png" width="30px" height="30px" />
+                </a>
+
+                <img src="images/menu.png" class="menu-icon" onClick="menutoggle()">
+            </div>
+        </div>
+    </div>
+
+    <div >
+       <div >
+            <div class="formm-container">
+
+                    @RenderBody()
+
+            </div>
+
+       </div>
+
+    </div>
+
+
+
+
+
+    <div class="footer">
+        <div class="small-container">
+
+            <div class="row">
+
+
+
+                <div class="footer-col-4">
+                    <h3>Follow us</h3>
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Instagram</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <hr><!--horizontal line-->
+
+        </div>
+    </div>
+
+
+
+
+    <!-----------------------------------js for toggle menu----------------------------------------------->
+    <script>
+        @await RenderSectionAsync("Scripts", required: false);
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        var menuItems = document.getElementById("MenuItems");
+
+        MenuItems.style.maxHeight = "0px";
+        function menutoggle() {
+            if (MenuItems.style.maxHeight == "0px") {
+                MenuItems.style.maxHeight = "200px";
+            }
+            else {
+                MenuItems.style.maxHeight = "0px";
+            }
+        }
+    </script>
 </body>
 </html>
-

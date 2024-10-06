@@ -1,4 +1,5 @@
 using FirstMVC.Models;
+using FirstMVC.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -8,15 +9,18 @@ namespace FirstMVC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ProductServices _ProductServices;
+        private readonly CategoryServices _CategoryServices;
+        public HomeController(ILogger<HomeController> logger, ProductServices ProductServices, CategoryServices CategoryServices)
         {
             _logger = logger;
+            _CategoryServices = CategoryServices;
+            _ProductServices = ProductServices;
         }
 
         public IActionResult Index()
         {
-            return View();
+            return View("Index",_ProductServices.GetFeaturedProducts());
         }
 
       

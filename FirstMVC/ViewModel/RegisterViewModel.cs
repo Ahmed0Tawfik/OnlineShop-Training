@@ -4,6 +4,8 @@ namespace FirstMVC.ViewModel
 {
     public class RegisterViewModel
     {
+        [Display(Name = "Username")]
+
         public string UserName { get; set; }
 
         [DataType(DataType.EmailAddress)]
@@ -19,7 +21,7 @@ namespace FirstMVC.ViewModel
 
         public string Address { get; set; }
 
-        [Display(Name = "Phone Number")]
+        [Display(Name = "Phone")]
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
     }
