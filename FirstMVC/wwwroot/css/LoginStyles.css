@@ -36,8 +36,8 @@ a{
 }
 
 .navelem a:hover{
-    border-bottom: solid #f72585;
-    color: #f72585;
+    border-bottom: solid #FF4D6D;
+    color: #FF4D6D;
 }
 p{
     color: #555;
@@ -72,7 +72,7 @@ p{
 
 
 .header {
-    background: radial-gradient(#fff, #f0fff1);
+    background: radial-gradient(#fff, #FFF0F3);
 }
 .header .row{
     margin-top: 70px;
@@ -123,7 +123,7 @@ p{
 }
 .title::after{
     content: '';
-    background: #f72585;
+    background: #FF4D6D;
     width: 80px;
     height: 5px;
     border-radius: 5px;
@@ -140,7 +140,7 @@ h4{
     font-size: 14px;
 }
 .rating .fa{
-    color: #f72585;
+    color: #FF4D6D;
 }
 .col-4:hover{
     transform:translateY(-5px);
@@ -293,8 +293,8 @@ ul{
 }
 
     .logo:hover {
-        border-bottom: solid #f72585;
-        color: #f72585;
+        border-bottom: solid #FF4D6D;
+        color: #FF4D6D;
     }
 
 
@@ -359,7 +359,7 @@ ul{
     }
 
     .formm-container input:hover {
-        border-color:#f72585;
+        border-color:#FF4D6D;
     }
 
 .btn {
@@ -378,7 +378,7 @@ ul{
 
     .btnreg:hover {
         background: #fff;
-        color: #f72585;
+        color: #FF4D6D;
     }
 
 
@@ -400,7 +400,7 @@ ul{
 
     .btn:hover {
         background: #fff;
-        color: #f72585;
+        color: #FF4D6D;
     }
 
     .regdiv{
