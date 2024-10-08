@@ -5,9 +5,10 @@ namespace FirstMVC.Repository
 {
     public interface IProductRepository
     {
-       List<Product> GetAll();
+        List<Product> GetAll();
 
-       public List<Product> GetByCategory(Category category);
+        public List<Product> GetProductsByCategory(int id);
+        public Product GetProductById(int id);
        
     }
 }

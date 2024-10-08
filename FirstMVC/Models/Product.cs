@@ -15,6 +15,8 @@ namespace FirstMVC.Models
         public int? Quantity { get; set; }
         public string? Description { get; set; }
 
+        public virtual List<Cart> Carts { get; set; }
+
 
     }
 }

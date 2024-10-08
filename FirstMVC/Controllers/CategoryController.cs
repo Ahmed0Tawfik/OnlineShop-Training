@@ -16,9 +16,9 @@ namespace FirstMVC.Controllers
             _ProductServices = ProductServices;
             _CategoryServices = CategoryServices;
         }
-        public IActionResult Index()
+        public IActionResult GetPartialCategories()
         {
-            return View("Index", _CategoryServices.GetAll());
+            return PartialView("_GetPartialCategories", _CategoryServices.GetAll());
         }
     }
 }

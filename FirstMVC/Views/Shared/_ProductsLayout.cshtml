@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -29,14 +30,13 @@
                         <li><a asp-controller="Product" asp-action="Index">Products</a></li>
 
                         <li class="dropdown">
-                            <a asp-controller="Category" asp-action="Index" class="dropbtn">Categories</a>
+                            <a  class="dropbtn">Categories</a>
                             <div class="dropdown-content">
-                                <a asp-controller="Product" asp-action="ByCategoryBags" class="dropbtn">Bags</a>
-                                <a asp-controller="Product" asp-action="ByCategoryShoes" class="dropbtn">Shoes</a>
+                                @await Component.InvokeAsync("Category")
+
                             </div>
                         </li>
 
-                        <li><a asp-controller="Services" asp-action="About">About</a></li>
 
                         <li><a asp-controller="Services" asp-action="Contact">Contact Us</a></li>
 
@@ -60,13 +60,16 @@
                     </ul>
                 </nav>
 
+                @{
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                }
 
-                <a asp-controller="Cart" asp-action="GetCart">
+                <a asp-controller="Cart" asp-action="GetCart" asp-route-id="@userId">
 
-                    <img src="images/cart.png" width="30px" height="30px" />
+                    <img src="~/images/cart.png" width="30px" height="30px" />
                 </a>
 
-                <img src="images/menu.png" class="menu-icon" onClick="menutoggle()">
+                <img src="~/images/menu.png" class="menu-icon" onClick="menutoggle()">
             </div>
         </div>
     </div>

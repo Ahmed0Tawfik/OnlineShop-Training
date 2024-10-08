@@ -4,6 +4,7 @@ using FirstMVC.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FirstMVC.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    partial class ShopContextModelSnapshot : ModelSnapshot
+    [Migration("20241006210252_CartMigration")]
+    partial class CartMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace FirstMVC.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("CartProduct", b =>
-                {
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CartId", "ProductId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("CartProduct");
-                });
 
             modelBuilder.Entity("FirstMVC.Models.ApplicationUser", b =>
                 {
@@ -130,7 +118,7 @@ namespace FirstMVC.Migrations
                     b.HasIndex("UserID")
                         .IsUnique();
 
-                    b.ToTable("Carts");
+                    b.ToTable("Cart");
                 });
 
             modelBuilder.Entity("FirstMVC.Models.Category", b =>
@@ -163,6 +151,9 @@ namespace FirstMVC.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
+                    b.Property<int?>("CartID")
+                        .HasColumnType("int");
+
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
 
@@ -185,6 +176,8 @@ namespace FirstMVC.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("CartID");
 
                     b.HasIndex("CategoryID");
 
@@ -327,21 +320,6 @@ namespace FirstMVC.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CartProduct", b =>
-                {
-                    b.HasOne("FirstMVC.Models.Cart", null)
-                        .WithMany()
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FirstMVC.Models.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("FirstMVC.Models.Cart", b =>
                 {
                     b.HasOne("FirstMVC.Models.ApplicationUser", "User")
@@ -355,6 +333,10 @@ namespace FirstMVC.Migrations
 
             modelBuilder.Entity("FirstMVC.Models.Product", b =>
                 {
+                    b.HasOne("FirstMVC.Models.Cart", null)
+                        .WithMany("Products")
+                        .HasForeignKey("CartID");
+
                     b.HasOne("FirstMVC.Models.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryID")
@@ -419,6 +401,11 @@ namespace FirstMVC.Migrations
                 {
                     b.Navigation("Cart")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("FirstMVC.Models.Cart", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("FirstMVC.Models.Category", b =>

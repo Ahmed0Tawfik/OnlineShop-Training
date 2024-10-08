@@ -1,0 +1,6 @@
+﻿@model List<Category>
+
+@foreach (var item in Model)
+{
+    <a asp-controller="Product" asp-action="GetProductsByCategory" asp-route-id="@item.ID">@item.Name</a>
+}

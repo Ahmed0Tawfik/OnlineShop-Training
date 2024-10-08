@@ -16,14 +16,19 @@ namespace FirstMVC.Service
             return _ProductRepository.GetAll(); 
         }
 
-        public List<Product> GetByCategory(Category category)
+        public List<Product> GetProductsByCategory(int id)
         {
-            return _ProductRepository.GetByCategory(category);
+            return _ProductRepository.GetProductsByCategory(id);
         }
 
         public List<Product> GetFeaturedProducts()
         {
             return _ProductRepository.GetAll().OrderBy(p => Guid.NewGuid()).Take(3).ToList();
+        }
+
+        public Product GetProductByID(int id)
+        {
+            return _ProductRepository.GetProductById(id);
         }
     }
 }

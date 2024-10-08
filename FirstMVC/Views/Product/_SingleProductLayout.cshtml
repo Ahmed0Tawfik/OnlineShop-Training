@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -30,18 +29,18 @@
                         <li><a asp-controller="Product" asp-action="Index">Products</a></li>
 
                         <li class="dropdown">
-                            <a  class="dropbtn">Categories</a>
+                            <a asp-controller="Category" asp-action="Index" class="dropbtn">Categories</a>
                             <div class="dropdown-content">
-
-                                @RenderSection("Categories", required: false)
-
+                                <a asp-controller="Product" asp-action="ByCategoryBags" class="dropbtn">Bags</a>
+                                <a asp-controller="Product" asp-action="ByCategoryShoes" class="dropbtn">Shoes</a>
                             </div>
                         </li>
 
+                        <li><a asp-controller="Services" asp-action="About">About</a></li>
 
                         <li><a asp-controller="Services" asp-action="Contact">Contact Us</a></li>
 
-                        @if(User.Identity.IsAuthenticated)
+                        @if (User.Identity.IsAuthenticated)
                         {
                             <li class="dropdown">
                                 <a asp-controller="Account" asp-action="Profile" class="dropbtn">@User.Identity.Name</a>
@@ -61,70 +60,44 @@
                     </ul>
                 </nav>
 
-                @inject UserManager<ApplicationUser> UserManager
 
-                @{
-                    var user = await UserManager.GetUserAsync(User);
-                    var userId = user?.Id;
-                }
-
-                <a asp-controller="Cart" asp-action="GetCart" asp-route-id="@userId">
+                <a asp-controller="Cart" asp-action="GetCart">
 
                     <img src="images/cart.png" width="30px" height="30px" />
                 </a>
 
                 <img src="images/menu.png" class="menu-icon" onClick="menutoggle()">
             </div>
-
-            @RenderBody()
-
         </div>
     </div>
 
-    <!------------------------------ featured Products------------------------------>
-    <div>
-         <div class="small-container">
+    <div class="small-container single-product">
 
-            <h2 class="title">Featured Products</h2>
 
-            <div class="row">
-
-           
-            @RenderSection("Products",required: false)
-
-            
-
-            
-
-            </div>
-        </div>
-   </div>
-
-    <!--------------------------`   offer   --------------------------------->
-    <div class="offer">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-2">
-                    <img src="images/image1.png" class="offer-img">
-                </div>
-
-                <div class="col-2">
-
-                    <p>Exclusively Available on RedStore</p>
-                    <h1>Sports Shoes</h1>
-                    <small> Buy latest collections of sports shoes online on Redstore at best prices from top brands such as Adidas, Nike, Puma, Asics, and Sparx at your leisure at best prices. </small><br>
-                    <a asp-controller="Product" asp-action="Index" class="btn">Buy Now &#8594;</a>
-
-                </div>
-
-            </div>
+        <!--<h2 class="title" >Featured Products</h2>-->
+        <div class="row">
+           @RenderBody()
         </div>
     </div>
 
 
-    <br />
+    <!----------------------------------Title------------------------------------->
+    <div class="small-container">
+        <div class="row row-2">
+            <h2>Related Products</h2>
+            <a asp-controller="Product" asp-action="Index"><p>View More</p></a>
+        </div>
+    </div>
 
+    <!----------------------------------products------------------------------------->
+    <div class="small-container">
+        <div class="row">
+
+            @RenderSection("RelatedProducts", required: false)
+        </div>
+    </div>
+
+   
     <div class="footer">
         <div class="small-container">
 
@@ -147,24 +120,28 @@
         </div>
     </div>
 
- 
+
 
 
     <!-----------------------------------js for toggle menu----------------------------------------------->
     <script>
-        @await RenderSectionAsync("Scripts",required: false);
+        @await RenderSectionAsync("Scripts", required: false);
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
-        var menuItems=document.getElementById("MenuItems");
+        var menuItems = document.getElementById("MenuItems");
 
-        MenuItems.style.maxHeight="0px";
-        function menutoggle(){
-            if(MenuItems.style.maxHeight == "0px"){
-                MenuItems.style.maxHeight="200px";
+        MenuItems.style.maxHeight = "0px";
+        function menutoggle() {
+            if (MenuItems.style.maxHeight == "0px") {
+                MenuItems.style.maxHeight = "200px";
             }
-            else{
-                MenuItems.style.maxHeight="0px";
+            else {
+                MenuItems.style.maxHeight = "0px";
             }
         }
+        var productImg = document.getElementById("productImg");
+        var smallImg = document.getElementsByClassName("small-img");
+
+  
     </script>
 </body>
 </html>

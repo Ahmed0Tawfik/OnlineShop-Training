@@ -1,0 +1,62 @@
+﻿@model FirstMVC.Models.Cart
+
+@{
+    ViewData["Title"] = "Cart Details";
+    Layout = "~/Views/Shared/_CartLayout.cshtml";
+}
+
+
+@if(Model.Products.Count == 0)
+{
+    <h2>Your cart is empty</h2>
+    <br />
+}
+else
+{
+    @foreach (var product in Model.Products)
+    {
+        <tr>
+            <td>
+                <div class="cart-info">
+
+                    <img src="~/images/@product?.Image">
+                    <div>
+                        <p>@product?.Name</p>
+                        <small>Price: $@product?.Price</small><br>
+
+                        <a asp-route-id="@product.ID" asp-controller="Cart" asp-action="RemoveFromCart">Remove</a>
+
+                    </div>
+
+                </div>
+
+            </td>
+
+            <td>@product?.Price</td>
+
+        </tr>
+    }
+
+    
+
+    @section total{
+    <tr>
+        <td>Total</td>
+        <td>@Model.Total</td>
+    </tr>
+    <br />
+    }
+   
+}
+
+@section btns{
+    @if(Model.Products.Count > 0)
+    {
+        <div>
+            <a asp-controller="Order" asp-action="MakeOrder" asp-route-id="@Model" class="btn">Procceed To Checkout</a>
+
+        </div>
+    }
+    
+}
+

@@ -1,5 +1,6 @@
 using FirstMVC.Models;
 using FirstMVC.Service;
+using FirstMVC.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -20,7 +21,12 @@ namespace FirstMVC.Controllers
 
         public IActionResult Index()
         {
-            return View("Index",_ProductServices.GetFeaturedProducts());
+            var model = new HomeViewModel();
+
+                model.FeaturedProducts = _ProductServices.GetFeaturedProducts();
+                model.Categories = _CategoryServices.GetAll();
+
+            return View("Index",model);
         }
 
       

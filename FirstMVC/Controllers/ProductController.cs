@@ -22,10 +22,14 @@ namespace FirstMVC.Controllers
             return View("Index", _ProductServices.GetAll());
         }
 
-        public IActionResult ByCategoryBags() 
+        public IActionResult GetProductsByCategory(int id)
         {
-            Category cat = new Category { Name = "Bags" };
-            return  View("Index", _ProductServices.GetByCategory(cat));
+            return View("Index", _ProductServices.GetProductsByCategory(id));
+        }
+
+        public IActionResult GetProductByID(int id)
+        {
+            return View("SingleProduct", _ProductServices.GetProductByID(id));
         }
     }
 }

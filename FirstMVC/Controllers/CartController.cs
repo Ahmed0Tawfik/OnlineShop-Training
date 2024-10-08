@@ -1,14 +1,41 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using FirstMVC.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace FirstMVC.Controllers
 {
-    public class CartController : Controller
+    [Authorize(Roles = "Customer")]
+    public class CartController : Controller  
     {
-        [Authorize]
-        public IActionResult GetCart()
+        private readonly ICartRepository _CartRepository;
+        public CartController(ICartRepository CartRepository)
         {
-            return View();
+            _CartRepository = CartRepository;
+        }
+
+        public IActionResult GetCart(string id)
+        {
+            var model = _CartRepository.GetCart(id);
+            return View("GetCart",model);
+        }
+
+        public IActionResult AddToCart(int ID)
+        {
+            var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            _CartRepository.AddToCart(userid, ID);
+
+            return RedirectToAction("GetCart", new { id = userid });
+        }
+
+        public IActionResult RemoveFromCart(int ID)
+        {
+            var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            _CartRepository.RemoveFromCart(userid, ID);
+
+            return RedirectToAction("GetCart", new { id = userid });
         }
     }
 }

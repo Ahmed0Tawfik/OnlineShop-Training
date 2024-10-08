@@ -1,22 +1,29 @@
-﻿@{
+﻿@using FirstMVC.ViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
-@model List<Product>
 
+@model HomeViewModel
 
+@section Categories{
+    @foreach (var item in Model.Categories)
+    {
+        <a asp-controller="Product" asp-action="GetProductsByCategory" asp-route-id="@item.ID">@item.Name</a>
+    }
+}
 
 @section Products{
-        @foreach (var item in Model)
+        @foreach (var item in Model.FeaturedProducts)
         {
         <div class="col-4">
 
-            <a asp-controller="Product" asp-action="GetProductByID">
+            <a asp-controller="Product" asp-action="GetProductByID" asp-route-id="@item.ID">
 
                 <img src="/Images/@item.Image" />
             </a>
 
             <h3>@item.Name</h3>
-            <p>@item.Price $</p>
+            <p>$@item.Price </p>
             <p>
                 In Stock : @item.Quantity
             </p>

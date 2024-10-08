@@ -16,9 +16,14 @@ namespace FirstMVC.Repository
             return _Context.Products.Include(p => p.Category).ToList();
         }
 
-        public List<Product> GetByCategory(Category category)
+        public List<Product> GetProductsByCategory(int id)
         {
-           return _Context.Products.Where(p => p.Category == category).ToList();  
+           return _Context.Products.Where(p => p.Category.ID == id ).ToList();  
+        }
+
+        public Product GetProductById(int id)
+        {
+            return _Context.Products.Include(p => p.Category).FirstOrDefault(p => p.ID == id);
         }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Azure.Identity;
 using FirstMVC.Models;
 using FirstMVC.ViewModel;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace FirstMVC.Controllers
 {
@@ -41,7 +43,15 @@ namespace FirstMVC.Controllers
                    await _UserManager.CheckPasswordAsync(applicationUser, model.Password);
                     if (found)
                     {
-                        await _SigninManager.SignInAsync(applicationUser, model.RememberMe);
+                        var CartID = applicationUser.Cart?.ID;
+                        var Claims = new List<Claim>
+                        {
+                            new Claim(ClaimTypes.Name,applicationUser.UserName),
+                            new Claim("CartID",CartID.ToString() ?? "")
+                        };
+
+                        var identity = new ClaimsIdentity(Claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        await _SigninManager.SignInAsync(applicationUser, model.RememberMe, identity.ToString());
                         return RedirectToAction("Index", "Home");
                     }
 
@@ -66,6 +76,8 @@ namespace FirstMVC.Controllers
             {
                 ApplicationUser applicationUser = new ApplicationUser();
                 applicationUser.Address = model.Address;
+                applicationUser.FName = model.FName;
+                applicationUser.LName = model.LName;
                 applicationUser.UserName = model.UserName;
                 applicationUser.Email = model.Email;
                 applicationUser.PhoneNumber = model.PhoneNumber;

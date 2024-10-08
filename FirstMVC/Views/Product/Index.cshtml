@@ -14,8 +14,8 @@
 
         <div class="col-4">
 
-            <a asp-controller="Product" asp-action="GetProductByID">
-
+        <a asp-controller="Product" asp-action="GetProductByID" asp-route-id="@item.ID">
+               
                 <img src="/Images/@item.Image" />
             </a>
 

@@ -4,6 +4,13 @@ namespace FirstMVC.ViewModel
 {
     public class RegisterViewModel
     {
+
+        [Display(Name = "First Name")]
+        public string FName { get; set; }
+
+        [Display(Name = "Last Name")]
+        public string LName { get; set; }
+
         [Display(Name = "Username")]
 
         public string UserName { get; set; }
